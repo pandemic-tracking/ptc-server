@@ -1,7 +1,6 @@
 Flask==1.1.2
 Flask-WTF==0.14.3
 gunicorn==20.0.4
-psycopg2==2.8.6
 pytest==6.2.2
 python-decouple==3.4
 requests==2.25.1
@@ -10,3 +9,7 @@ oauth2client
 requests==2.25.1
 requests-mock==1.8.0
 flask-restful==0.3.8
+numpy
+pandas
+oauth2client
+gspread

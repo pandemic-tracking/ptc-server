@@ -4,31 +4,12 @@ application with a specific config file"""
 
 # Flask Imports
 from flask import Flask
-from flask_migrate import Migrate
-from flask_sqlalchemy import SQLAlchemy
-from flask_jwt_extended import JWTManager
-
-# For the database
-db = SQLAlchemy()
-migrate = Migrate()
 
 def create_app(config):
     app = Flask(__name__)
 
     app.config.from_object(config)
-    config.init_app(app)
-
-    db.init_app(app)
-    migrate.init_app(app, db)
-    
-    # setup flask_jwt_extended for authentication
-    app.config['JWT_SECRET_KEY'] = app.config['SECRET_KEY']
-    jwt = JWTManager(app)
-
-    # Return a more interpretable message if auth fails due to an invalid token
-    @jwt.invalid_token_loader
-    def informative_invalid_token_callback(invalid_token):
-        return 'Your database password is invalid: did you enter a secret key?', 422
+    config.init_app(app)    
 
     # Register our API blueprint
     from app.api import api as api_blueprint
