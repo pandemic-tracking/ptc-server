@@ -44,7 +44,9 @@ def make_output_string(gc):
     # Load new CSV file (current spreadsheet)
     sh = gc.open_by_key(flask.current_app.config['SNAPSHOT_SHEET_ID'])
     worksheet = sh.worksheet("Snapshot")
-    new_df = pd.DataFrame(worksheet.get_all_records())
+    # need to get everything as strings first and let pandas do the conversion later
+    records = [{k: str(v) for k, v in record.items()} for record in worksheet.get_all_records()]
+    new_df = pd.DataFrame(records)
 
     # Load existing sheet snapshot from GitHub
     existing_df = pd.read_csv(_EXISTING_CSV_URL)
