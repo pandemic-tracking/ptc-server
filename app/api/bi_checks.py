@@ -126,6 +126,10 @@ def make_output_string(gc):
 
     # Check specific data for each state
     for state in existing_df.Abbr:
+        # if this state has been dropped, continue and don't keep checking values
+        if state in states_dropped:
+            continue
+
         new_row = new_df.loc[new_df.Abbr == state]
         old_row = existing_df.loc[existing_df.Abbr == state]
         state = old_row.Abbr.iloc[0]
